@@ -63,6 +63,11 @@ const (
 	bottom29Bits = 0x1FFFFFFF
 )
 
+func initAll() {
+	initP256Sm2()
+	initSecp256k1()
+}
+
 func initP256Sm2() {
 	sm2P256.CurveParams = &elliptic.CurveParams{Name: "SM2-P-256"} // sm2
 	A, _ := new(big.Int).SetString("FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFC", 16)
@@ -81,7 +86,7 @@ func initP256Sm2() {
 }
 
 func P256Sm2() elliptic.Curve {
-	initonce.Do(initP256Sm2)
+	initonce.Do(initAll)
 	return sm2P256
 }
 
